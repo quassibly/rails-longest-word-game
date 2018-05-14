@@ -1,0 +1,22 @@
+
+<h1>Result</h1>
+<% @grid = params['grid'].split(//) %>
+<% @word = params['word'] %>
+
+<% validation = @word.split(//).map do |letter| %>
+  <% if @grid.index(letter).nil? %>
+    <% nil %>
+  <% else %>
+    <% @grid.delete_at(@grid.index(letter)) %>
+  <% end %>
+<% end %>
+  <% if !validation.index(nil).nil? %>
+    <%= "Sorry, but #{@word} can't be built from #{@params['grid']}." %>
+  <% elsif @json['found'] %>
+    <%= "Congrats! #{@word} is a word!" %>
+    <% score = @word.length * 20 %>
+    <%= "Your score is #{score} points." %>
+  <% else %>
+    <%= "Sorry, #{@word} does not seem to be a valid English word ..." %>
+  <% end %>
+
